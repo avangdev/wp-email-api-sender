@@ -1,0 +1,19 @@
+{
+  "name": "avangdev/wp-email-api-sender",
+  "version": "1.0.0",
+  "description": "This plugin replace wp_mail() function in wp to send via api instead of smtp",
+  "homepage": "https://avangemail.com",
+  "require": {
+    "php" : "^5.5 || ^7.0",
+    "avangdev/avang-php-sendemail-api": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "AvangEmail Inc",
+      "homepage": "https://avangemail.com",
+      "role": "Publisher"
+    }
+  ],
+  "prefer-stable" : true
+}
