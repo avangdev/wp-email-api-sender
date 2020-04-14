@@ -193,7 +193,7 @@ class eemail {
                     fclose($handle);
                 }
                 $filetype = wp_check_filetype( $attachmentPath );
-                $composeMessage->attach($fileName,  $filetype['ext'], $fileContent);
+                $composeMessage->attach($fileName,  $filetype['type'], $fileContent);
             }
         }
         $result = $composeMessage->send();
