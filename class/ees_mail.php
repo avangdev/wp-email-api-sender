@@ -178,6 +178,13 @@ class eemail {
         $composeMessage->replyTo($reply_to);
         $composeMessage->plainBody($message_bodyText);
         $composeMessage->htmlBody($message_bodyHTML);
+        /*if(!empty($attachments)) {
+            foreach ($attachments as $attachmentPath) {
+                $a = explode('/', $attachmentPath);
+                $fileName;
+                $composeMessage->attach('test.png', 'application/octet-stream', 'test');
+            }
+        }*/        
         $result = $composeMessage->send();
         $sent = true;
         foreach ($result->recipients() as $email => $message) {

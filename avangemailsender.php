@@ -54,7 +54,6 @@ if (is_plugin_active(get_option('avang-email-subscribe-basename')) === true) {
         /* activate */
         function AvangEmailsender_activate()
         {
-            update_option('daterangeselect', 'last-wk');
             register_uninstall_hook(__FILE__, 'AvangEmailsender_uninstall');
         }
 
@@ -68,7 +67,6 @@ if (is_plugin_active(get_option('avang-email-subscribe-basename')) === true) {
             delete_option('avangemail_config_from_name');
             delete_option('avangemail_config_from_email');
             delete_option('avangemail_from_email');
-            delete_option('daterangeselect');
             delete_option('avang-email-sender-basename');
             delete_option('avangemail_config_override_wooCommerce');
             delete_option('avangemail_config_woocommerce_original_email');
