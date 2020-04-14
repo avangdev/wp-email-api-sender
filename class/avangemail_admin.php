@@ -26,7 +26,6 @@ class avangemail_admin
         add_action('init', array($this, 'WooCommerce_email'));
         add_action('init', array($this, 'WooCommerce_name'));
         add_action('admin_init', array($this, 'init_options'));
-        add_action('plugins_loaded', array($this, 'eesender_load_textdomain'));
         $this->options = get_option('avangemail_options', $this->defaultOptions);
 
         if (is_multisite()) {
@@ -36,32 +35,11 @@ class avangemail_admin
         }
     }
 
-    public function eesender_load_textdomain()
-    {
-        load_plugin_textdomain('avang-email-sender', false, basename(dirname(__FILE__)) . '/languages');
-    }
-
     // Added admin menu
     public function add_menu()
     {
-        add_action('admin_enqueue_scripts', array($this, 'custom_admin_scripts'));
-
         add_menu_page('AvangEmail Email Api Sender', 'AvangEmail Api Sender', 'manage_options', 'avang-email-settings', array($this, 'show_settings'), plugins_url('/assets/images/icon.png', dirname(__FILE__)));
     }
-
-    /**
-     *
-     */
-    public function custom_admin_scripts()
-    {
-        if (is_admin()) {
-
-            $plugin_path = plugins_url() . '/' . get_option('avangemail_plugin_dir_name');
-            wp_register_script('avangemail-sender-jquery', $plugin_path . '/assets/lib/jquery.min.js', '', 3.3, true);
-            wp_register_style('avangemail-sender-bootstrap-grid', $plugin_path . '/assets/lib/bootstrap-grid.min.css', '', 4.1, false);
-        }
-    }
-
 
     // Load settings
     public function show_settings()
@@ -85,7 +63,6 @@ class avangemail_admin
         add_settings_field('avangemail_enable', 'Select mailer:', array($this, 'enable_input'), 'avangemail-settings', 'setting_section_id', array('input_name' => 'avangemail_enable'));
         add_settings_field('avangemail_apikey', 'AvangEmail Host Name:', array($this, 'input_hostname'), 'avangemail-settings', 'setting_section_id', array('input_name' => 'avangemail_hostname', 'width' => 280));
         add_settings_field('avangemail_hostname', 'AvangEmail API Key:', array($this, 'input_apikey'), 'avangemail-settings', 'setting_section_id', array('input_name' => 'avangemail_apikey', 'width' => 280));
-        add_settings_field('avangemail_emailtype', 'Email type:', array($this, 'emailtype_input'), 'avangemail-settings', 'setting_section_id', array('input_name' => 'avangemail_emailtype'));
 
         if (is_plugin_active('woocommerce/woocommerce.php')) {
             add_settings_field('avangemail_override_wooCommerce', 'Override: ', array($this, 'override_wooCommerce_input'), 'avangemail-settings', 'setting_section_id', array('input_name' => 'avangemail_override_wooCommerce', 'width' => 280));
@@ -144,26 +121,6 @@ class avangemail_admin
 
         echo '<div style="margin-bottom:15px;"><label><input type="radio" name="avangemail_options[' . $arg['input_name'] . ']" value="yes" ' . (($valuel === 'yes') ? 'checked' : '') . '/><span>' . __('Send all WordPress emails via Avang Email API.', 'avang-email-sender') . '</span><label></div>';
         echo '<label><input type="radio" name="avangemail_options[' . $arg['input_name'] . ']" value="no"  ' . (($valuel === 'no') ? 'checked' : '') . '/><span>' . __('Use the defaults Wordpress function to send emails.', 'avang-email-sender') . '</span><label>';
-    }
-
-    /**
-     * Displays the settings email type
-     */
-    public function emailtype_input($arg)
-    {
-        if (!isset($this->options[$arg['input_name']]) || empty($this->options[$arg['input_name']])) {
-            $type = 'marketing';
-            update_option('avangemail_send-email-type', false);
-        } else {
-            $type = $this->options[$arg['input_name']];
-            if ($type === 'marketing') {
-                update_option('avangemail_send-email-type', false);
-            } else {
-                update_option('avangemail_send-email-type', true);
-            }
-        }
-        echo '<div style="margin-bottom:15px;"><label><input type="radio" name="avangemail_options[' . $arg['input_name'] . ']" value="marketing" ' . (($type === 'marketing') ? 'checked' : '') . '/><span>' . __('Marketing', 'avang-email-sender') . '</span><label></div>';
-        echo '<label><input type="radio" name="avangemail_options[' . $arg['input_name'] . ']" value="transactional"  ' . (($type === 'transactional') ? 'checked' : '') . '/><span>' . __('Transactional', 'avang-email-sender') . '</span><label>';
     }
 
     /**
