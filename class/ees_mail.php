@@ -183,7 +183,7 @@ class eemail {
         if (!empty($attachments)) {
             foreach ($attachments as $attachmentPath) {
                 $a = explode("/", $attachmentPath);
-                $fileName = $attachmentPath[sizeof($a) - 1];
+                $fileName = $a[sizeof($a) - 1];
                 $handle = fopen($attachmentPath, "r");
                 if ($handle) {
                     $fileContent = '';
@@ -192,8 +192,8 @@ class eemail {
                     }
                     fclose($handle);
                 }
-                $filetype = wp_check_filetype( $attachmentPath );
-                $composeMessage->attach($fileName,  $filetype['type'], $fileContent);
+                $filetype = wp_check_filetype($attachmentPath);
+                $composeMessage->attach($fileName, $filetype['type'], $fileContent);
             }
         }
         $result = $composeMessage->send();
