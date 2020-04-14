@@ -5,6 +5,7 @@ class eemail {
     static $options = array(),
             $conflict = false;
     static $base = null;
+
     public static function on_load($pluginpath) {
         self::$options = get_option('avangemail_options');
 
@@ -18,9 +19,10 @@ class eemail {
             return;
         }
         require_once($pluginpath . '/vendor/autoload.php');
-        $host = self::getOption('avangemail_hostname'); 
-        $key = self::getOption('avangemail_apikey'); 
+        $host = self::getOption('avangemail_hostname');
+        $key = self::getOption('avangemail_apikey');
         self::$base = new \AvangPhpApi\Base($host, $key);
+
         function wp_mail($to, $subject, $message, $headers = '', $attachments = array()) {
             try {
                 $rs = eemail::send($to, $subject, $message, $headers, $attachments);
@@ -178,13 +180,22 @@ class eemail {
         $composeMessage->replyTo($reply_to);
         $composeMessage->plainBody($message_bodyText);
         $composeMessage->htmlBody($message_bodyHTML);
-        /*if(!empty($attachments)) {
+        if (!empty($attachments)) {
             foreach ($attachments as $attachmentPath) {
-                $a = explode('/', $attachmentPath);
-                $fileName;
-                $composeMessage->attach('test.png', 'application/octet-stream', 'test');
+                $a = explode("/", $attachmentPath);
+                $fileName = $attachmentPath[sizeof($a) - 1];
+                $handle = fopen($attachmentPath, "r");
+                if ($handle) {
+                    $fileContent = '';
+                    while (($buffer = fgets($handle, 4096)) !== false) {
+                        $fileContent .= $buffer;
+                    }
+                    fclose($handle);
+                }
+                $filetype = wp_check_filetype( $attachmentPath );
+                $composeMessage->attach($fileName,  $filetype['ext'], $fileContent);
             }
-        }*/        
+        }
         $result = $composeMessage->send();
         $sent = true;
         foreach ($result->recipients() as $email => $message) {
@@ -201,6 +212,10 @@ class eemail {
         } else {
             return false;
         }
+    }
+
+    static function parse_attachment($attachPath, $fileName) {
+        
     }
 
     static function wp_mail_native($to, $subject, $message, $headers, $attachments, $error) {
