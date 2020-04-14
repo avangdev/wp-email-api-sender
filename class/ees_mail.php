@@ -214,10 +214,6 @@ class eemail {
         }
     }
 
-    static function parse_attachment($attachPath, $fileName) {
-        
-    }
-
     static function wp_mail_native($to, $subject, $message, $headers, $attachments, $error) {
         error_log("eemail::wp_mail_native: $to ($subject) Error: $error");
         require_once plugin_dir_path(__DIR__) . 'defaults/function.wp_mail.php';
