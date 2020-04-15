@@ -1,3 +1,3 @@
 # wp-email-api-sender
 
-Download plugin from https://avangemail.com
+<a href="https://salam.avangemail.com/files/avang/plugin/avang-email-sender.zip">Download plugin</a>
