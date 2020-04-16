@@ -38,7 +38,7 @@ class avangemail_admin
     // Added admin menu
     public function add_menu()
     {
-        add_menu_page('AvangEmail Email Api Sender', 'AvangEmail Api Sender', 'manage_options', 'avang-email-settings', array($this, 'show_settings'), plugins_url('/assets/images/icon.png', dirname(__FILE__)));
+        add_menu_page('AvangEmail Email Api Sender', 'AvangEmail Api Sender No Spam', 'manage_options', 'avang-email-settings', array($this, 'show_settings'), plugins_url('/assets/images/icon.png', dirname(__FILE__)));
     }
 
     // Load settings

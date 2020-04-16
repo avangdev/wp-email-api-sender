@@ -1,4 +1,4 @@
-=== Avang Email Sender ===
+=== Avang Email Sender No Spam ===
 Contributors: avangemail
 link: https://avangemail.com/
 Tags:  avangemail, email marketing, transactional email, email sender, email, mailer, send email, send email via api

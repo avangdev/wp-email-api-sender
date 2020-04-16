@@ -14,8 +14,8 @@ if (is_plugin_active(get_option('avang-email-subscribe-basename')) === true) {
 } else {
 
     /*
-     * Plugin Name: Avang Email Sender
-     * Text Domain: avang-email-sender
+     * Plugin Name: Avang Email Sender No Spam
+     * Text Domain: avang-email-sender-nospam
      * Description: This plugin reconfigures the wp_mail() function to send email using API (via Avang Email) instead of SMTP and creates an options page that allows you to specify various options.
      * Author: Avang Email
      * Author URI: https://avangemail.com
