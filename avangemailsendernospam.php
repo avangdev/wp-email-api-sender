@@ -19,7 +19,7 @@ if (is_plugin_active(get_option('avang-email-subscribe-basename')) === true) {
      * Description: This plugin reconfigures the wp_mail() function to send email using API (via Avang Email) instead of SMTP and creates an options page that allows you to specify various options.
      * Author: Avang Email
      * Author URI: https://avangemail.com
-     * Version: 1.0.0
+     * Version: 1.0.2
      * License: GPLv2 or later
      * License URI: (https://www.gnu.org/licenses/gpl-3.0.html).
      * Avang Email Inc. for WordPress
